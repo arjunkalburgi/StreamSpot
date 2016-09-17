@@ -5,6 +5,40 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 	});
 
 
+	var Spotify = require(['spotify-web-api']);
+	var s = new Spotify();
+	
+	var spotifyApi = new SpotifyWebApi();
+	chrome.storage.sync.get("AccessToken", (StorageObj) => {
+ 					spotifyApi.setAccessToken(StorageObj.AccessToken);
+
+ 		    			console.log(StorageObj.AccessToken);
+ 	    		 });
+	
+	prev = spotifyApi.searchTracks(text, {limit: 5})
+    .then(function(data) {
+
+    	console.log(data);
+
+      // clean the promise so it doesn't call abort
+      
+      var suggestions=[];
+      for (i=0;i<data.tracks.items.length;i++){
+      	str1=data.tracks.items[i].name.concat(' by ').concat(data.tracks.items[i].artists['0'].name);
+		suggestions.push({content:str1, description:str1});
+      	console.log(str1);
+      }
+      prev = null;
+      if(suggestions!=null){
+      	suggest(suggestions);
+  	  }
+       // ...render list of search results...
+
+    }, function(err) {
+    	console.log('im here');
+      //console.error(err);
+    });
+
 
 	/*
 	// console.log('inputChanged: ' + text);
@@ -23,10 +57,10 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 	
 	// Other suggest lines
 	*/
-	suggest([
-		{content: text + " ", description: "Should show Spotify suggestion#1."},
-		{content: text + " ", description: "Should show Spotify suggestion#1."}
-	]);
+	/*var suggestions = [];
+	suggestions.push({ content: 'Coffee - Wikipedia', description: 'Coffee - Wikipedia' });
+        suggestions.push({ content: 'Starbucks Coffee', description: 'Starbucks Coffee' });
+	suggest(suggestions);*/
 });
 
 // This event is fired with the user accepts the input in the omnibox.
@@ -35,18 +69,35 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 	console.log('HERE');
 	
 
-	var Spotify = require('spotify-web-api-js');
+	var Spotify = require(['spotify-web-api']);
 	var s = new Spotify();
 	
 	var spotifyApi = new SpotifyWebApi();
+	chrome.storage.sync.get("AccessToken", (StorageObj) => {
+ 					spotifyApi.setAccessToken(StorageObj.AccessToken);
 
-	spotifyApi.setAccessToken('<here_your_access_token>');
+ 		    			console.log(StorageObj.AccessToken);
+ 	    		 });
+	
+	prev = spotifyApi.searchTracks(text, {limit: 5})
+    .then(function(data) {
+
+    	console.log(data);
+
+      // clean the promise so it doesn't call abort
+      prev = null;
+
+      // ...render list of search results...
+
+    }, function(err) {
+      console.error(err);
+    });
 
 	// get Elvis' albums, passing a callback. When a callback is passed, no Promise is returned
-	spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', function(err, data) {
+	/*spotifyApi.getArtistAlbums(text, function(err, data) {
   	if (err) console.error(err);
   	else console.log('Artist albums', data);
-	});
+	});*/
 	/*
 	// If the tweet goes over 140 characters send a notification
 	if (Notification.permission !== "granted") {
