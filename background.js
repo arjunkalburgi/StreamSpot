@@ -74,10 +74,11 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
         suggestions.push({ content: 'Starbucks Coffee', description: 'Starbucks Coffee' });
 	suggest(suggestions);*/
 });
-
+var _baseUri = 'https://api.spotify.com/v1';
 // This event is fired with the user accepts the input in the omnibox.
 chrome.omnibox.onInputEntered.addListener(function(text) {
 
+<<<<<<< HEAD
 
 	// set up interfacing 
     var Spotify = require(['spotify-web-api']);
@@ -102,6 +103,59 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
         }, function(err) {
             console.error(err);
         });
+=======
+    console.log('HERE');
+
+
+    var Spotify = require(['spotify-web-api']);
+    var s = new Spotify();
+
+    var spotifyApi = new SpotifyWebApi();
+    chrome.storage.sync.get("AccessToken", (StorageObj) => {
+        spotifyApi.setAccessToken(StorageObj.AccessToken);
+
+        console.log(StorageObj.AccessToken);
+    });
+    
+    spotifyApi.getUserPlaylists('askalburgionspotify')
+  .then(function(data) {
+    console.log('User playlists', data);
+  }, function(err) {
+    console.error(err);
+  });
+
+  spotifyApi.createPlaylist('askalburgionspotify',{'name':'StreamSpot','public':'true'})
+  .then(function(data) {
+    console.log('User playlists', data);
+  }, function(err) {
+    console.error(err);
+  });
+
+  spotifyApi.getUserPlaylists('askalburgionspotify')
+  .then(function(data) {
+    console.log('User playlists', data);
+  }, function(err) {
+    console.error(err);
+  });
+
+// spotifyApi.getMe()
+//   .then(function(data) {
+    
+//     var requestData;
+//     if (typeof userId === 'string') {
+//       requestData = {
+//         url: _baseUri + '/users/' + data.id + '/playlists'
+//       };
+//     } else {
+//       requestData = {
+//         url: _baseUri + '/me/playlists'
+//       };
+//       console.log("PLAYLOST: ",requestData);
+//   }, function(err) {
+//     console.error(err);
+//   });
+  
+>>>>>>> 59ce0e0adb4a8e178eb52e9838f4cdc1f9e9c226
 
     // get Elvis' albums, passing a callback. When a callback is passed, no Promise is returned
     /*spotifyApi.getArtistAlbums(text, function(err, data) {
