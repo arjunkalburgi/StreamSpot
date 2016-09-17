@@ -24,8 +24,8 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 	// Other suggest lines
 	*/
 	suggest([
-		{content: text + " ", description: "Use mentions - Type '@' followed by a twitter handle."},
-		{content: text + " ", description: "Paste in links - They will automatically shorten."}
+		{content: text + " ", description: "Should show Spotify suggestion#1."},
+		{content: text + " ", description: "Should show Spotify suggestion#1."}
 	]);
 });
 
