@@ -1,10 +1,31 @@
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="popup.css">
 	</head>
 	<body>
-		Hello World
-		<a target="_" id="https://accounts.spotify.com/en/authorize?client_id=7bd298c4b0bd46499b47b9acfbfd6671&redirect_uri=http:%2F%2Fexample.com%2Fcallback&response_type=token">Sign in to Spotify</a>
+		<div id="signin" class="button nouser">Sign in to Spotify</div>
 
+		<div id="play-controls" class="user">Prev + Play/Pause + Next</div>
+		<div id="wrapper">
+			<table id="playlist" class="user">
+				<thread>
+					<tr>
+						<td>Play</td>
+						<td>Song</td>
+						<td>Artist</td>
+						<td>Album</td>
+						<td>Time</td>
+						<td>Remove</td>
+					</tr>
+				</thread>
+				<tbody id="tracklisting">
+					
+				</tbody>
+			</table>
+		</div>
+
+		<script type="text/javascript" src="require.js"></script>
+		<script type="text/javascript" src="spotify-web-api.js"></script>
 		<script src="callback.js"></script>
 	</body>
 </html>
