@@ -14,18 +14,26 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 
  		    			console.log(StorageObj.AccessToken);
  	    		 });
+	var prev=null;
 	
+	if (prev !== null) {
+    prev.abort();
+  	}
 	prev = spotifyApi.searchTracks(text, {limit: 5})
     .then(function(data) {
 
     	console.log(data);
 
       // clean the promise so it doesn't call abort
-      
+      function encodeXml(s) {
+  		var holder = document.createElement('div');
+  		holder.textContent = s;
+  		return holder.innerHTML;
+		}
       var suggestions=[];
       for (i=0;i<data.tracks.items.length;i++){
       	str1=data.tracks.items[i].name.concat(' by ').concat(data.tracks.items[i].artists['0'].name);
-		suggestions.push({content:str1, description:str1});
+		suggestions.push({content:encodeXml(str1), description:encodeXml(str1)});
       	console.log(str1);
       }
       prev = null;
@@ -36,7 +44,7 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 
     }, function(err) {
     	console.log('im here');
-      //console.error(err);
+      	console.error(err);
     });
 
 
