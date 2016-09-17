@@ -1,3 +1,5 @@
+var kanyePlaylist='5poflllJE2p9koyxXWd1Xr';
+
 chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
     console.log('Search Spotify for: ' + text);
     chrome.omnibox.setDefaultSuggestion({
@@ -36,7 +38,7 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
             for (i = 0; i < data.tracks.items.length; i++) {
                 str1 = data.tracks.items[i].name.concat(' by ').concat(data.tracks.items[i].artists['0'].name);
                 suggestions.push({
-                    content: encodeXml(str1),
+                    content: encodeXml(data.tracks.items[i].id),
                     description: encodeXml(str1)
                 });
                 console.log(str1);
@@ -78,10 +80,10 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 var _baseUri = 'https://api.spotify.com/v1';
 // This event is fired with the user accepts the input in the omnibox.
 chrome.omnibox.onInputEntered.addListener(function(text) {
-
+	console.log('id for song is ', text);
     console.log('HERE');
 
-
+    var str2='spotify:track:'.concat(text);
     var Spotify = require(['spotify-web-api']);
     var s = new Spotify();
 
@@ -91,27 +93,38 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 
         console.log(StorageObj.AccessToken);
     });
-    
-    spotifyApi.getUserPlaylists('askalburgionspotify')
+    spotifyApi.addTracksToPlaylist('askalburgionspotify',kanyePlaylist, str2)
   .then(function(data) {
-    console.log('User playlists', data);
+    console.log('User ', data);
   }, function(err) {
     console.error(err);
   });
 
-  spotifyApi.createPlaylist('askalburgionspotify',{'name':'StreamSpot','public':'true'})
-  .then(function(data) {
-    console.log('User playlists', data);
-  }, function(err) {
-    console.error(err);
-  });
 
-  spotifyApi.getUserPlaylists('askalburgionspotify')
-  .then(function(data) {
-    console.log('User playlists', data);
+
+
+    /*spotifyApi.getUserPlaylists('askalburgionspotify')
+  .then(function(playlistData) {
+    console.log('User playlists', playlistData);
   }, function(err) {
     console.error(err);
   });
+  console.log('playlist id: ',playlistData.items[0].id);
+*/
+
+  // spotifyApi.createPlaylist('askalburgionspotify',{'name':'StreamSpot','public':'true'})
+  // .then(function(data) {
+  //   console.log('User playlists', data);
+  // }, function(err) {
+  //   console.error(err);
+  // });
+
+  // spotifyApi.getUserPlaylists('askalburgionspotify')
+  // .then(function(data) {
+  //   console.log('User playlists', data);
+  // }, function(err) {
+  //   console.error(err);
+  // });
 
 // spotifyApi.getMe()
 //   .then(function(data) {
