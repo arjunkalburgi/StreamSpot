@@ -3,13 +3,17 @@
   "name": "StreamSpot",
   "description": "This sample shows how to authorize Firebase in a Chrome extension using a Google account.",
   "version": "0.1",
-  "omnibox": { "keyword" : "str" },
+  "omnibox": { "keyword" : "s" },
 
 	"options_page": "popup.html",
 	"browser_action": {
     		// "default_icon": "ShoutBox128.png",
     		"default_popup": "popup.html"
 		},
+    "background": {
+    "persistent": true,
+    "page": "background.html"
+    },
 	// "background": {
 	// 	"persistent": true,
 	// 	"page": "callback.html"
