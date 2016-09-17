@@ -13,11 +13,10 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
     var spotifyApi = new SpotifyWebApi();
     chrome.storage.sync.get("AccessToken", (StorageObj) => {
         spotifyApi.setAccessToken(StorageObj.AccessToken);
-
         console.log(StorageObj.AccessToken);
     });
-    var prev = null;
 
+    var prev = null;
     if (prev !== null) {
         prev.abort();
     }
@@ -80,7 +79,37 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 var _baseUri = 'https://api.spotify.com/v1';
 // This event is fired with the user accepts the input in the omnibox.
 chrome.omnibox.onInputEntered.addListener(function(text) {
+<<<<<<< HEAD
 	console.log('id for song is ', text);
+=======
+
+<<<<<<< HEAD
+
+	// set up interfacing 
+    var Spotify = require(['spotify-web-api']);
+    var s = new Spotify();
+    var spotifyApi = new SpotifyWebApi();
+    chrome.storage.sync.get("AccessToken", (StorageObj) => {
+        spotifyApi.setAccessToken(StorageObj.AccessToken);
+    });
+
+    // tracks data
+    prev = spotifyApi.searchTracks(text, {
+            limit: 5
+        })
+        .then(function(data) {
+            console.log("Spotify searchTracks");
+            console.log(data);
+            // clean the promise so it doesn't call abort
+            prev = null;
+
+            // ...render list of search results...
+
+        }, function(err) {
+            console.error(err);
+        });
+=======
+>>>>>>> origin/master
     console.log('HERE');
 
     var str2='spotify:track:'.concat(text);
@@ -143,6 +172,7 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 //     console.error(err);
 //   });
   
+>>>>>>> 59ce0e0adb4a8e178eb52e9838f4cdc1f9e9c226
 
     // get Elvis' albums, passing a callback. When a callback is passed, no Promise is returned
     /*spotifyApi.getArtistAlbums(text, function(err, data) {
