@@ -17,6 +17,7 @@
 
   "permissions": [
     "identity", 
+    "storage",
     "https://accounts.spotify.com/*"
   ]
 }
