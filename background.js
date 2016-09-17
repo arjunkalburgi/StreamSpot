@@ -77,10 +77,7 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 var _baseUri = 'https://api.spotify.com/v1';
 // This event is fired with the user accepts the input in the omnibox.
 chrome.omnibox.onInputEntered.addListener(function(text) {
-
-<<<<<<< HEAD
-
-	// set up interfacing 
+    // set up interfacing 
     var Spotify = require(['spotify-web-api']);
     var s = new Spotify();
     var spotifyApi = new SpotifyWebApi();
@@ -89,99 +86,36 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
     });
 
     // tracks data
-    prev = spotifyApi.searchTracks(text, {
-            limit: 5
-        })
-        .then(function(data) {
-            console.log("Spotify searchTracks");
-            console.log(data);
-            // clean the promise so it doesn't call abort
-            prev = null;
+    // prev = spotifyApi.searchTracks(text, {
+    //         limit: 5
+    //     })
+    //     .then(function(data) {
+    //         console.log("Spotify searchTracks");
+    //         console.log(data);
+    //         // clean the promise so it doesn't call abort
+    //         prev = null;
 
-            // ...render list of search results...
+    //         // ...render list of search results...
+    //         // clean the promise so it doesn't call abort
+    //         function encodeXml(s) {
+    //             var holder = document.createElement('div');
+    //             holder.textContent = s;
+    //             return holder.innerHTML;
+    //         }
+    //         var suggestions=[];
+    //         for (i=0;i<data.tracks.items.length;i++){
+    //             str1=data.tracks.items[i].name.concat(' by ').concat(data.tracks.items[i].artists['0'].name);
+    //             suggestions.push({content:encodeXml(str1), description:encodeXml(str1)});
+    //             console.log(str1);
+    //         }
+    //         prev = null;
+    //         if(suggestions!=null){
+    //             suggest(suggestions);
+    //         }
 
-        }, function(err) {
-            console.error(err);
-        });
-=======
+    //     }, function(err) {
+    //         console.error(err);
+    //     });
+
     console.log('HERE');
-
-
-    var Spotify = require(['spotify-web-api']);
-    var s = new Spotify();
-
-    var spotifyApi = new SpotifyWebApi();
-    chrome.storage.sync.get("AccessToken", (StorageObj) => {
-        spotifyApi.setAccessToken(StorageObj.AccessToken);
-
-        console.log(StorageObj.AccessToken);
-    });
-    
-    spotifyApi.getUserPlaylists('askalburgionspotify')
-  .then(function(data) {
-    console.log('User playlists', data);
-  }, function(err) {
-    console.error(err);
-  });
-
-  spotifyApi.createPlaylist('askalburgionspotify',{'name':'StreamSpot','public':'true'})
-  .then(function(data) {
-    console.log('User playlists', data);
-  }, function(err) {
-    console.error(err);
-  });
-
-  spotifyApi.getUserPlaylists('askalburgionspotify')
-  .then(function(data) {
-    console.log('User playlists', data);
-  }, function(err) {
-    console.error(err);
-  });
-
-// spotifyApi.getMe()
-//   .then(function(data) {
-    
-//     var requestData;
-//     if (typeof userId === 'string') {
-//       requestData = {
-//         url: _baseUri + '/users/' + data.id + '/playlists'
-//       };
-//     } else {
-//       requestData = {
-//         url: _baseUri + '/me/playlists'
-//       };
-//       console.log("PLAYLOST: ",requestData);
-//   }, function(err) {
-//     console.error(err);
-//   });
-  
->>>>>>> 59ce0e0adb4a8e178eb52e9838f4cdc1f9e9c226
-
-    // get Elvis' albums, passing a callback. When a callback is passed, no Promise is returned
-    /*spotifyApi.getArtistAlbums(text, function(err, data) {
-  	if (err) console.error(err);
-  	else console.log('Artist albums', data);
-	});*/
-    /*
-    // If the tweet goes over 140 characters send a notification
-    if (Notification.permission !== "granted") {
-    	// 
-    	Notification.requestPermission();
-    }
-    if (no_of_char>140) {
-    	var notification = new Notification('Character limit exceeded', {
-    		icon: 'ShoutBox128.png',
-    		body: "Oops! You're tweet was too long, try again!",
-    	});
-    	notification.onclick = function () {
-    		window.open("http://twitter.com/");
-    	}
-    }
-
-    // Post using Twitter shit
-    var xmlhttp=new XMLHttpRequest();
-    // xmlhttp.open("GET","http://127.0.0.1:3000/post-status?message=" +  encodeURIComponent(text),true); // for when testing
-    xmlhttp.open("GET","https://shoutboxextension.herokuapp.com/post-status?message=" +  encodeURIComponent(text),true); // for when deployed
-    xmlhttp.send();
-    */
 });

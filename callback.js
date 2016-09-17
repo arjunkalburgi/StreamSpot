@@ -48,8 +48,6 @@ function populatePlaylistTracks(spotifyApi) {
 	console.log("end"); 
 }
 
-
-
 window.onload = () => {
 	// configure popup.html
 	chrome.storage.sync.get("AccessToken", (StorageObj) => {
@@ -76,6 +74,9 @@ window.onload = () => {
 		}
 	})
 
+	// begin queue 
+
+
 	// oauth flow
 	var callbackurl = encodeURIComponent(chrome.identity.getRedirectURL() + "callback.html"); 
 	var URL = "https://accounts.spotify.com/en/authorize?client_id=7bd298c4b0bd46499b47b9acfbfd6671&redirect_uri=" + callbackurl + "&response_type=token"
@@ -88,6 +89,15 @@ window.onload = () => {
  	    	// console.log(url);
  	    	chrome.storage.sync.set({'AccessToken':url.substring(url.indexOf("=")+1,url.indexOf("&"))}, () => {
  	    		console.log("AccessToken saved"); 
+
+ 	    		chrome.storage.sync.get("queue", (StorageObj) => {
+ 	    			if (StorageObj.queue) {
+ 	    				console.log("queue exists");
+ 	    			} else {
+ 	    				console.log("make queue"); 
+ 	    				queue = {}; 
+ 	    			}
+ 	    		})
  	    	}); 
  	    });
     }
