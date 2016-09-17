@@ -11,7 +11,8 @@ window.onload = () => {
  	    }, (url) => {
  	    	// console.log(url);
  	    	chrome.storage.sync.set({'AccessToken':url.substring(url.indexOf("=")+1,url.indexOf("&"))}, () => {
- 	    		console.log("AccessToken saved"); 
+ 	    		console.log("AccessToken saved");
+ 	    		console.log(url); 
  	    		// chrome.storage.sync.get("AccessToken", (AT) => {
  	    		//	console.log(AT.AccessToken);
  	    		// });
