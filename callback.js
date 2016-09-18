@@ -34,38 +34,46 @@ function configurepopup() {
 	// configure popup.html
 	console.log("popup")
 	chrome.storage.sync.get("AccessToken", (StorageObj) => {
+
+		// add spotify
+		var Spotify = require(['spotify-web-api']);
+		var s = new Spotify();
+		var spotifyApi = new SpotifyWebApi();
+		spotifyApi.setAccessToken(StorageObj.AccessToken);
+
 		var user = document.getElementsByClassName("user");
 		var nouser = document.getElementsByClassName("nouser");
-		if (StorageObj.AccessToken) {
-			// page css
-			console.log(1)
-			for (var i = 0; i < nouser.length; i++) {
-			    nouser[i].style.display = "none";
-			}
-			console.log(user)
-			for (var i = 0; i < user.length; i++) {
-				user[i].style.display = "unset";
-			}
-			// document.getElementById('wrapper').style.padding-top = 50px;
 
-			// add spotify
-			var Spotify = require(['spotify-web-api']);
-			var s = new Spotify();
-			var spotifyApi = new SpotifyWebApi();
-			spotifyApi.setAccessToken(StorageObj.AccessToken);
+    	prev = spotifyApi.getMe({})
+        	.then(function(data) {
+            	//works - no sign in required
 
-			// populate 
-			populatePlaylistTracks(spotifyApi);
-		} else {
-			console.log(2)
-			for (var i = 0; i < user.length; i++) {
+				// populate 
+				populatePlaylistTracks(spotifyApi);
+
+				// hide/show
+				for (var i = 0; i < user.length; i++) {
+					user[i].style.display = "unset";
+				}
+			    nouser[0].animate([
+				  // keyframes
+				  { transform: 'translateY(0px)' }, 
+				  { transform: 'translateY(2000px)' }
+				], { 
+				  // timing options
+				  duration: 2000
+				  // iterations: 1
+				})
+				setTimeout(function() {
+					nouser[0].style.display = "none"; //need animated solution
+				},1200);
+        }, function(err) {
+            console.log('not signed in');
+            for (var i = 0; i < user.length; i++) {
 				user[i].style.display = "none";
 			}
-			for (var i = 0; i < nouser.length; i++) {
-			    nouser[i].style.display = "unset";
-			}
-			// document.getElementById('wrapper').style.padding-top = 10px;
-		}
+		    nouser[0].innerHTML = "Click here to sign in";
+        });		
     })
 }
 
