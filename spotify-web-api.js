@@ -697,7 +697,7 @@ var SpotifyWebApi = (function() {
     var requestData = {
       url: _baseUri + '/users/' + encodeURIComponent(userId) + '/playlists',
       type: 'POST',
-      postData: Options
+      postData: options
     };
     return _checkParamsAndPerformRequest(requestData, options, callback);
   };
@@ -1242,12 +1242,6 @@ var SpotifyWebApi = (function() {
     return this.search(query, ['playlist'], options, callback);
   };
 
-  
-  Constr.prototype.getATrack = function(trackId, callback) {
-    var requestData = {};
-    requestData.url = _baseUri + '/track/' + trackId;
-    return _checkParamsAndPerformRequest(requestData, {}, callback);
-  };
   /**
    * Get audio features for a single track identified by its unique Spotify ID.
    * See [Get Audio Features for a Track](https://developer.spotify.com/web-api/get-audio-features/) on
@@ -1260,7 +1254,7 @@ var SpotifyWebApi = (function() {
    */
   Constr.prototype.getAudioFeaturesForTrack = function(trackId, callback) {
     var requestData = {};
-    requestData.url = _baseUri + '/audio-features/' + trackId+'?market=ES';
+    requestData.url = _baseUri + '/audio-features/' + trackId;
     return _checkParamsAndPerformRequest(requestData, {}, callback);
   };
 

@@ -118,7 +118,6 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 
         console.log(StorageObj.AccessToken);
     });
-
     spotifyApi.addTracksToPlaylist('askalburgionspotify',kanyePlaylist, str2)
   .then(function(data) {
     console.log('User ', data);
@@ -126,17 +125,6 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
     console.error(err);
   });
 
-  	spotifyApi.getTrack(text).then(function(trackdata) {
-					console.log('playback got track', trackdata);
-					createAndPlayAudio(trackdata.preview_url, function() {
-						// _trackdata = trackdata;
-						// _progress = 0;
-						// $rootScope.$emit('playerchanged');
-						// $rootScope.$emit('trackprogress');
-						// enableTick();
-					});
-				});
-  
 
 
 
