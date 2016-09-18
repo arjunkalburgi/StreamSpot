@@ -1,21 +1,19 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="popup.css">
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 	</head>
 	<body>
-		<div id="signin" class="button nouser">Sign in to Spotify</div>
+		<div id="play-controls" class="user"></div>
 
-		<div id="play-controls" class="user">Prev + Play/Pause + Next</div>
 		<div id="wrapper">
+			<div id="signin" class="button nouser">Sign in to Spotify</div>
 			<table id="playlist" class="user">
 				<thread>
 					<tr>
-						<td>Play</td>
-						<td>Song</td>
-						<td>Artist</td>
-						<td>Album</td>
-						<td>Time</td>
-						<td>Remove</td>
+						<th>Song</th>
+						<th>Artist</th>
+						<th>Album</th>
 					</tr>
 				</thread>
 				<tbody id="tracklisting">
