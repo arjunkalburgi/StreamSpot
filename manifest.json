@@ -5,6 +5,12 @@
   "version": "0.1",
   "omnibox": { "keyword" : "s" },
 
+  "icons": {
+    "16":"streamspot.png",
+    "48":"streamspot.png",
+    "128":"streamspot.png"
+    },
+
 	"options_page": "popup.html",
 	"browser_action": {
     		// "default_icon": "ShoutBox128.png",
